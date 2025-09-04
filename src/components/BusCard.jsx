@@ -7,6 +7,20 @@ export default function BusCard({ bus }) {
                 ? "운행종료"
                 : "대기중";
 
+    const statusIcon =
+        statusText === "운행중"
+            ? "🚍"
+            : statusText === "운행종료"
+                ? "⛔"
+                : "⏳";
+
+    const statusColor =
+        statusText === "운행중"
+            ? "text-green-600 dark:text-green-400"
+            : statusText === "운행종료"
+                ? "text-red-600 dark:text-red-400"
+                : "text-yellow-600 dark:text-yellow-400";
+
     // 남은시간 기반 탑승 확률
     const time = parseInt(bus.predictTime1);
     let progress = 0;
@@ -15,29 +29,64 @@ export default function BusCard({ bus }) {
     else progress = 10;
 
     return (
-        <div className="p-3 border rounded-lg bg-white shadow">
+        <div className="p-3 border rounded-lg bg-white dark:bg-gray-800 shadow transition-colors">
             <div className="flex justify-between items-center mb-1">
-                <div className="font-bold text-lg">{bus.routeName}</div>
-                <div className="text-sm text-gray-500">{statusText}</div>
+                <div className="font-bold text-lg text-gray-900 dark:text-gray-100">
+                    {bus.routeName}
+                </div>
+                <div className={`text-sm font-semibold flex items-center gap-1 ${statusColor}`}>
+                    <span>{statusIcon}</span>
+                    <span>{statusText}</span>
+                </div>
             </div>
-            <div className="mb-1">도착예상: {bus.predictTime1 ?? "-"}분</div>
-            {bus.plateNo1 && <div>차량번호: {bus.plateNo1}</div>}
-            {bus.routeDestName && <div>방향: {bus.routeDestName}</div>}
-            {bus.locationNo1 !== "" && <div>위치: {bus.locationNo1}번째 전 정류소</div>}
-            {bus.crowded1 && <div>혼잡도: {bus.crowded1}</div>}
-            {bus.stateCd1 !== undefined && <div>차량상태: {bus.stateCd1}</div>}
-            {bus.remainSeatCnt1 !== undefined && bus.remainSeatCnt1 !== -1 && (
-                <div>남은좌석: {bus.remainSeatCnt1}</div>
+
+            <div className="mb-1 text-gray-800 dark:text-gray-200">
+                도착예상: {bus.predictTime1 ?? "-"}분
+            </div>
+            {bus.plateNo1 && (
+                <div className="text-gray-700 dark:text-gray-300">
+                    차량번호: {bus.plateNo1}
+                </div>
             )}
-            <div className="w-full bg-gray-200 rounded-full h-3 mt-2">
+            {bus.routeDestName && (
+                <div className="text-gray-700 dark:text-gray-300">
+                    방향: {bus.routeDestName}
+                </div>
+            )}
+            {bus.locationNo1 !== "" && (
+                <div className="text-gray-700 dark:text-gray-300">
+                    위치: {bus.locationNo1}번째 전 정류소
+                </div>
+            )}
+            {bus.crowded1 && (
+                <div className="text-gray-700 dark:text-gray-300">
+                    혼잡도: {bus.crowded1}
+                </div>
+            )}
+            {bus.stateCd1 !== undefined && (
+                <div className="text-gray-700 dark:text-gray-300">
+                    차량상태: {bus.stateCd1}
+                </div>
+            )}
+            {bus.remainSeatCnt1 !== undefined && bus.remainSeatCnt1 !== -1 && (
+                <div className="text-gray-700 dark:text-gray-300">
+                    남은좌석: {bus.remainSeatCnt1}
+                </div>
+            )}
+
+            {/* 진행바 */}
+            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3 mt-2">
                 <div
-                    className="bg-blue-500 h-3 rounded-full"
+                    className="bg-blue-500 dark:bg-blue-400 h-3 rounded-full"
                     style={{ width: `${progress}%` }}
                 ></div>
             </div>
         </div>
     );
 }
+
+
+
 
 
 // import React from "react";
