@@ -13,36 +13,39 @@ export default function GameFloatingButton() {
     return (
         <>
             {/* 플로팅 버튼 */}
-            <div className="fixed bottom-4 right-4 flex flex-col gap-2 z-50">
+            <div className="fixed bottom-4 right-4 flex flex-col gap-3 z-50">
                 <button
-                    className="bg-blue-500 text-white rounded-full w-14 h-14 shadow-lg hover:bg-blue-600 transition"
+                    className="bg-gradient-to-br from-indigo-500 to-blue-500 text-white rounded-full w-16 h-16 shadow-xl hover:scale-110 transition transform flex items-center justify-center text-2xl"
                     onClick={() => toggleGame("tetris")}
+                    title="Tetris"
                 >
-                    T
+                    🟦
                 </button>
                 <button
-                    className="bg-green-500 text-white rounded-full w-14 h-14 shadow-lg hover:bg-green-600 transition"
+                    className="bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-full w-16 h-16 shadow-xl hover:scale-110 transition transform flex items-center justify-center text-2xl"
                     onClick={() => toggleGame("rps")}
+                    title="가위바위보"
                 >
-                    R
+                    ✊✌️✋
                 </button>
                 <button
-                    className="bg-red-500 text-white rounded-full w-14 h-14 shadow-lg hover:bg-red-600 transition"
+                    className="bg-gradient-to-br from-green-400 to-teal-400 text-white rounded-full w-16 h-16 shadow-xl hover:scale-110 transition transform flex items-center justify-center text-2xl"
                     onClick={() => toggleGame("galaga")}
+                    title="Galaga"
                 >
-                    G
+                    🚀
                 </button>
             </div>
 
             {/* 게임 모달 */}
             {openGame && (
-                <div className="fixed inset-0 bg-black/70 z-40 p-4 flex justify-center items-start overflow-auto backdrop-blur-sm">
-                    <div className="w-full max-w-md bg-gray-900 rounded-xl shadow-2xl p-6 relative">
+                <div className="fixed inset-0 z-50 p-4 flex justify-center items-start overflow-auto pointer-events-none">
+                    <div className="pointer-events-auto w-full max-w-md bg-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl p-6 relative border border-white/20">
                         <button
-                            className="absolute top-3 right-3 text-white text-xl font-bold hover:text-gray-300"
+                            className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300 transition"
                             onClick={() => setOpenGame(null)}
                         >
-                            ×
+                            ✖
                         </button>
 
                         {openGame === "tetris" && <TetrisGame />}
