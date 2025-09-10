@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { fetchBusArrivalList } from "../config/api";
 import BusCard from "../components/BusCard";
@@ -7,6 +8,13 @@ export default function BusArrivalPage() {
     const [stationId, setStationId] = useState("228001831");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    const stationOptions = [
+        { id: "228001831", name: "흥덕유타워(분당선방향)" },
+        { id: "228003219", name: "기흥역4번출구" },
+        { id: "228000682", name: "기흥역 6번출구" },
+        { id: "203000121", name: "청명역1번출구.청명산" }
+    ];
 
     const load = async () => {
         setLoading(true);
@@ -30,17 +38,26 @@ export default function BusArrivalPage() {
     return (
         <div className="space-y-4">
             <div className="flex items-center gap-2">
-                <input
-                    className="w-full rounded-lg border px-3 py-2"
+                <select
+                    className="w-full rounded-sm border px-3 py-2"
                     value={stationId}
                     onChange={(e) => setStationId(e.target.value)}
-                    placeholder="정류장 ID 입력 (예: 228001831)"
-                />
+                >
+                    {stationOptions.map((station) => (
+                        <option key={station.id} value={station.id}>
+                            {station.name}
+                        </option>
+                    ))}
+                </select>
                 <button
                     onClick={load}
-                    className="rounded-lg bg-blue-600 px-4 py-2 text-white"
+                    className="rounded-sm px-3 py-2 text-white font-medium"
+                    style={{
+                        background: "linear-gradient(to right, #4f46e5, #3b82f6)",
+                        minWidth: "90px"
+                    }}
                 >
-                    새로고침
+                    F5
                 </button>
             </div>
 
